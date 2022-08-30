@@ -1,0 +1,38 @@
+server:
+  port: 9000
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+spring:
+  profiles:
+    active: local
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/whiskey_note?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    name: test
+    password: 1234
+    pool:
+      max-create-connection-time: 5s
+      max-size: 100
+      validation-query: SELECT 1
+  devtools:
+    restart:
+      quiet-period: 600ms
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc:
+          core:
+            org.springframework.r2dbc.core.DefaultDatabaseClient: DEBUG
+      hibernate:
+        type:
+          descriptor:
+            sql: WARN
+    root: INFO
+
