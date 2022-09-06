@@ -1,9 +1,9 @@
 package com.whiskey.note.security
 
+import lombok.AllArgsConstructor
 import lombok.extern.slf4j.Slf4j
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
@@ -11,11 +11,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 
+
 @Slf4j
 @Configuration
+@AllArgsConstructor
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-class WebSecurityConfig {
+class WebSecurityConfiguration(
+    private val authenticationManager: CustomAuthenticationManager,
+    private val securityContextRepository: SecurityContextRepository
+) {
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
@@ -28,17 +33,14 @@ class WebSecurityConfig {
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
-        ;
-
-        http
+            .authenticationManager(authenticationManager)
+            .securityContextRepository(securityContextRepository)
             .authorizeExchange()
             .pathMatchers("/signin", "/signup").permitAll()
-            .pathMatchers(HttpMethod.DELETE,"/members/{memberId}").hasRole("MEMBER")
+            .pathMatchers("/members/**").permitAll()
+            //.pathMatchers(HttpMethod.DELETE,"/members/{memberId}").hasRole("MEMBER")
             .anyExchange().authenticated()
-        ;
 
-
-
-        return http.build();
+        return http.build()
     }
 }
