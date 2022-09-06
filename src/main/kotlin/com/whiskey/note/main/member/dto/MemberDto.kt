@@ -1,4 +1,4 @@
-package com.whiskey.note.member.dto
+package com.whiskey.note.main.member.dto
 
 class MemberDto(
     val name: String? = null,

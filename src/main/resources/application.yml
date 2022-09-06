@@ -8,15 +8,18 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: default
   r2dbc:
-    url: r2dbc:mariadb://localhost:3306/whiskey_note?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-    name: test
+    url: r2dbc:mariadb://127.0.0.1:3306/whiskey_note
+    username: test
     password: 1234
     pool:
       max-create-connection-time: 5s
       max-size: 100
       validation-query: SELECT 1
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
   devtools:
     restart:
       quiet-period: 600ms
@@ -30,9 +33,9 @@ logging:
         r2dbc:
           core:
             org.springframework.r2dbc.core.DefaultDatabaseClient: DEBUG
-      hibernate:
-        type:
-          descriptor:
-            sql: WARN
-    root: INFO
+#      hibernate:
+#        type:
+#          descriptor:
+#            sql: WARN
+    root: DEBUG
 
