@@ -10,7 +10,7 @@ spring:
   profiles:
     active: default
   r2dbc:
-    url: r2dbc:mariadb://127.0.0.1:3306/whiskey_note
+    url: r2dbc:mariadb://localhost:3306/whiskey-note
     username: test
     password: 1234
     pool:

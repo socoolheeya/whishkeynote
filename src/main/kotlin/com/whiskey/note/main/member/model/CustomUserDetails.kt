@@ -16,7 +16,7 @@ class CustomUserDetails(
     private var isAccountNonLocked: Boolean,
     private var isCredentialsNonExpired: Boolean,
     private var isEnabled: Boolean,
-    private var roles: List<String>? = ArrayList<String>()
+    private var roles: List<String>? = ArrayList()
 ): UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

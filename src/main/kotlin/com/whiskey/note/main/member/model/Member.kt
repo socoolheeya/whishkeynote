@@ -1,5 +1,8 @@
 package com.whiskey.note.main.member.model
 
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 import lombok.Builder
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
@@ -10,9 +13,6 @@ import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.math.BigInteger
 import java.time.LocalDateTime
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.Pattern
 
 @Table(name = "member")
 @Builder
@@ -22,7 +22,7 @@ data class Member(
     @Column(value = "member_id")
     var memberId: BigInteger? = null,
 
-    @field:Email
+    @Email
     @Column(value = "email")
     var email: String? = null,
 

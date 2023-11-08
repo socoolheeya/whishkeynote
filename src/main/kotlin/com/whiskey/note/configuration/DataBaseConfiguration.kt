@@ -1,9 +1,8 @@
-package com.whiskey.note.config
+package com.whiskey.note.configuration
 
 import io.r2dbc.spi.ConnectionFactory
 import org.mariadb.r2dbc.MariadbConnectionConfiguration
 import org.mariadb.r2dbc.MariadbConnectionFactory
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.r2dbc.core.DatabaseClient

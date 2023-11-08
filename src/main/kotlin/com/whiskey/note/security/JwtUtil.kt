@@ -5,10 +5,10 @@ import com.whiskey.note.main.token.model.JwtProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
 import java.security.Key
-import java.util.*
-import javax.annotation.PostConstruct
+import java.util.Date
 
 @Component
 class JwtUtil {
@@ -43,7 +43,7 @@ class JwtUtil {
 
     fun doCreateToken(claims: MutableMap<String, String?>, username: String?): String {
         val expirationTImeLong: Long = expirationTime.toLong()
-        val createdDate:Date = Date()
+        val createdDate: Date = Date()
         val expirationDate: Date = Date(createdDate.time + expirationTImeLong * 1000)
 
         return Jwts.builder()

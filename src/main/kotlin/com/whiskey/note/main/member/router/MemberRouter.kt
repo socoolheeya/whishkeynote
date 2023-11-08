@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
-import org.springframework.web.reactive.function.server.coRouter
 import org.springframework.web.reactive.function.server.router
 
 
@@ -17,12 +16,14 @@ class MemberRouter(
     @Bean
     fun memberRouters() {
         router {
-            accept(MediaType.APPLICATION_JSON).nest {
-                GET("/members", memberHandler::getMembers)
-                GET("/members/{id}", memberHandler::getMember)
-                POST("/members", memberHandler::createMember)
-                PUT("/members/{id}", memberHandler::updateMember)
-                DELETE("/members/{id}", memberHandler::deleteMember)
+            path("/members").nest {
+                accept(MediaType.APPLICATION_JSON).nest {
+                    GET("", memberHandler::getMembers)
+                    GET("/{id}", memberHandler::getMember)
+                    POST("", memberHandler::createMember)
+                    PUT("/{id}", memberHandler::updateMember)
+                    DELETE("/{id}", memberHandler::deleteMember)
+                }
             }
         }
     }
