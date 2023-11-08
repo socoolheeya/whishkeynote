@@ -11,17 +11,17 @@ import java.util.stream.Collectors
 
 @Component
 class CustomAuthenticationManager(
-    private val jwtUtil: JwtUtil
+    private val jwtTokenProvider: JwtTokenProvider
 ): ReactiveAuthenticationManager {
 
     override fun authenticate(authentication: Authentication): Mono<Authentication> {
         val authToken: String = authentication.credentials.toString()
-        val username: String = jwtUtil.getUsernameFromToken(authToken)
+        val username: String = jwtTokenProvider.decodeJwtToken(authToken).body.subject;
 
-        val claims: Claims = jwtUtil.getAllClaimsFromToken(authToken)
+        val claims: Claims = jwtTokenProvider.getClaims(authToken)
         val roles: String = claims["roles"] as String
 
-        return Mono.just(jwtUtil.validateToken(authToken))
+        return Mono.just(jwtTokenProvider.validateToken(authToken))
             .filter {
                 valid -> valid
             }
@@ -35,6 +35,5 @@ class CustomAuthenticationManager(
                         .collect(Collectors.toList())
                 )
             }
-
     }
 }

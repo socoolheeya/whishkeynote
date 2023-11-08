@@ -1,11 +1,11 @@
 package com.whiskey.note.main.note.model
 
+import jakarta.validation.constraints.Min
+import org.jetbrains.annotations.NotNull
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.math.BigInteger
-import javax.validation.constraints.Min
-import javax.validation.constraints.NotNull
 
 @Table(name = "note")
 data class Note(
