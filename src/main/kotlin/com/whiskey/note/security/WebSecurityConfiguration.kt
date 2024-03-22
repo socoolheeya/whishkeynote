@@ -21,8 +21,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 class WebSecurityConfiguration(
-    private val authenticationManager: CustomAuthenticationManager,
-    private val securityContextRepository: SecurityContextRepository,
     private val jwtTokenProvider: JwtTokenProvider
 ) {
 
@@ -33,7 +31,6 @@ class WebSecurityConfiguration(
 
     @Bean
     fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
-
         http
             .csrf { it.disable() }
             .formLogin { it.disable() }
@@ -45,9 +42,7 @@ class WebSecurityConfiguration(
                     .anyExchange()
                     .authenticated()
             }
-            .authenticationManager(authenticationManager)
-            .securityContextRepository(securityContextRepository)
-            .addFilterAt(AuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
+            .addFilterBefore(JwtAuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
 
 
         return http.build()
