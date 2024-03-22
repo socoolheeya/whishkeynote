@@ -9,7 +9,7 @@ import java.math.BigInteger
 @Repository
 interface MemberRepository: ReactiveCrudRepository<Member, BigInteger> {
 
-    fun findByEmail(email: String): Mono<Member>
+    fun findByEmail(email: String): Mono<Member?>
 
 
 }

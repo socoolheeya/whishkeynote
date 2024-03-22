@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
+import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
@@ -12,7 +13,8 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
 @Slf4j
-class AuthenticationFilter(private val jwtTokenProvider: JwtTokenProvider): WebFilter {
+@Component
+class JwtAuthenticationFilter(private val jwtTokenProvider: JwtTokenProvider): WebFilter {
 
     @Override
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {

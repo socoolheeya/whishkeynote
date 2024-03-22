@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono
 @AllArgsConstructor
 class SecurityContextRepository(
     private val authenticationManager: CustomAuthenticationManager
-): ServerSecurityContextRepository {
+) : ServerSecurityContextRepository {
 
     override fun save(exchange: ServerWebExchange, context: SecurityContext): Mono<Void> {
         throw UnsupportedOperationException("Not supported yet")
