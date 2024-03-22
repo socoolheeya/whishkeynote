@@ -18,34 +18,42 @@ class CustomUserDetails(
     private var isEnabled: Boolean,
     private var roles: List<String>? = ArrayList()
 ): UserDetails {
-
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return roles?.stream()?.map {
-                role -> SimpleGrantedAuthority("ROLE_$role")
-        }?.collect(Collectors.toSet()) ?: ArrayList()
+        val authorities = ArrayList<SimpleGrantedAuthority>()
+        roles?.let {
+            authorities.addAll(
+                it.stream()
+                    .map { role -> SimpleGrantedAuthority(role) }
+                    .collect(Collectors.toList())
+            )
+        }
+
+        return authorities;
     }
 
     override fun getPassword(): String {
-        return this.password
+        return password;
     }
 
     override fun getUsername(): String {
-        return this.username
+        return username;
     }
 
     override fun isAccountNonExpired(): Boolean {
-        return this.isAccountNonExpired
+        return isAccountNonExpired;
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return this.isAccountNonLocked
+        return isAccountNonLocked;
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        return this.isCredentialsNonExpired
+        return isCredentialsNonExpired;
     }
 
     override fun isEnabled(): Boolean {
-        return this.isEnabled
+        return isEnabled;
     }
+
+
 }

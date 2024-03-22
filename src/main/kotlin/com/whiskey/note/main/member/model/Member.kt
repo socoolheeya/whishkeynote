@@ -14,9 +14,10 @@ import org.springframework.data.relational.core.mapping.Table
 import java.math.BigInteger
 import java.time.LocalDateTime
 
-@Table(name = "member")
+
 @Builder
-data class Member(
+@Table(name = "member")
+class Member(
 
     @field:Id
     @Column(value = "member_id")
